@@ -3,29 +3,49 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
+    }
+  },
   "forwardPorts": [
     5000,
     5001,
     1433
   ],
   "portsAttributes": {
-    "5001": {
-      "protocol": "https"
-    }
+    "5000": { "label": "Web API (HTTP)", "onAutoForward": "silent" },
+    "5001": { "label": "Web API (HTTPS)", "protocol": "https" },
+    "1433": { "label": "SQL Server", "onAutoForward": "ignore" }
   },
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-dotnettools.csdevkit", // Solution explorer & testing
+        "ms-dotnettools.csdevkit",
         "ms-dotnettools.vscode-dotnet-runtime",
-        "ms-mssql.mssql", // Query SQL & manage schemas
-        "mstrev.dot-net-code-coverage" // Useful for unit testing
+        "ms-mssql.mssql",
+        "mstrev.dot-net-code-coverage",
+        "editorconfig.editorconfig"
       ],
       "settings": {
-        "dotnet.server.useOmnisharp": false // Ensures C# Dev Kit is the default
+        "dotnet.server.useOmnisharp": false,
+        "mssql.connections": [
+          {
+            "server": "db",
+            "database": "master",
+            "user": "sa",
+            "password": "Asdf!234", // Matches your docker-compose password
+            "metadata": { "connectionName": "Container DB" }
+          }
+        ],
+        // Testing & Coverage UI settings
+        "dotnet.unitTest.autoRun": true,
+        "terminal.integrated.defaultProfile.linux": "zsh"
       }
     }
   },
   "remoteUser": "vscode",
-  "postCreateCommand": "dotnet restore"
+  "postCreateCommand": "dotnet restore",
+  "postStartCommand": "dotnet dev-certs https"
 }
