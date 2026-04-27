@@ -15,9 +15,18 @@
     1433
   ],
   "portsAttributes": {
-    "5000": { "label": "Web API (HTTP)", "onAutoForward": "silent" },
-    "5001": { "label": "Web API (HTTPS)", "protocol": "https" },
-    "1433": { "label": "SQL Server", "onAutoForward": "ignore" }
+    "5000": {
+      "label": "Web API (HTTP)",
+      "onAutoForward": "silent"
+    },
+    "5001": {
+      "label": "Web API (HTTPS)",
+      "protocol": "https"
+    },
+    "1433": {
+      "label": "SQL Server",
+      "onAutoForward": "ignore"
+    }
   },
   "customizations": {
     "vscode": {
@@ -30,18 +39,28 @@
       ],
       "settings": {
         "dotnet.server.useOmnisharp": false,
+        // Testing & Coverage UI settings
+        "dotnet.unitTest.autoRun": true,
+        "terminal.integrated.defaultProfile.linux": "zsh",
         "mssql.connections": [
           {
             "server": "db",
             "database": "master",
+            "authenticationType": "SqlLogin",
             "user": "sa",
-            "password": "Asdf!234", // Matches your docker-compose password
-            "metadata": { "connectionName": "Container DB" }
+            "password": "Asdf!234",
+            "profileName": "ContainerSQL",
+            "groupName": "DevContainer",
+            "savePassword": true,
+            "trustServerCertificate": true,
+            "encrypt": "Mandatory"
           }
         ],
-        // Testing & Coverage UI settings
-        "dotnet.unitTest.autoRun": true,
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "mssql.connectionGroups": [
+          {
+            "name": "DevContainer" // This defines the missing group
+          }
+        ]
       }
     }
   },
