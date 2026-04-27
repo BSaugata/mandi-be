@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/dotnet:2-10.0
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    network_mode: service:db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Asdf!234
+    volumes:
+      - sql-data:/var/opt/mssql # This line persists your data
+
+volumes:
+  sql-data: # Declares the named volume

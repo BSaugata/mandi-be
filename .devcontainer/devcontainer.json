@@ -1,0 +1,32 @@
+{
+  "name": "DotNet and SQL Server",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [
+    5000,
+    5001,
+    1433
+  ],
+  "portsAttributes": {
+    "5001": {
+      "protocol": "https"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csdevkit", // Solution explorer & testing
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-mssql.mssql", // Query SQL & manage schemas
+        "mtxr.sqltools", // Optional: Alternative SQL UI
+        "mstrev.dot-net-code-coverage" // Useful for unit testing
+      ],
+      "settings": {
+        "dotnet.server.useOmnisharp": false // Ensures C# Dev Kit is the default
+      }
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "dotnet restore"
+}
