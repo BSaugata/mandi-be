@@ -19,7 +19,6 @@
         "ms-dotnettools.csdevkit", // Solution explorer & testing
         "ms-dotnettools.vscode-dotnet-runtime",
         "ms-mssql.mssql", // Query SQL & manage schemas
-        "mtxr.sqltools", // Optional: Alternative SQL UI
         "mstrev.dot-net-code-coverage" // Useful for unit testing
       ],
       "settings": {
